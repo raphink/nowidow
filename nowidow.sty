@@ -22,10 +22,10 @@
 \ProvidesPackage{nowidow}
     [2011/09/11 0.1 Easily prevent widows]
 \ProvidesPackage{nowidow}
-\def\nowidowX#1{%
+\def\nowidow@X#1{%
     \ifnum#1<\nowidowmax
         10000
-        \expandafter\nowidowX\expandafter{%
+        \expandafter\nowidow@X\expandafter{%
            \the\numexpr(#1)+1\expandafter\relax\expandafter}%
     \fi
 }

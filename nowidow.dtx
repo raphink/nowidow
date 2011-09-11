@@ -26,7 +26,7 @@
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<package>\ProvidesPackage{nowidow}
 %<*package>
-    [2011/09/11 0.1 Easily prevent widows]
+    [2011/09/11 0.2 Easily prevent widows]
 %</package>
 %
 %<*driver>
@@ -62,6 +62,7 @@
 %   Right brace   \}     Tilde         \~}
 %
 %
+% \changes{0.2}{2011/09/11}{Fix nowidow@X}
 % \changes{0.1}{2011/09/11}{Initial version}
 %
 % \DoNotIndex{\newcommand,\newenvironment}
@@ -124,10 +125,10 @@
 %
 % \begin{macro}{\nowidow@X}
 %    \begin{macrocode}
-\def\nowidowX#1{%
+\def\nowidow@X#1{%
     \ifnum#1<\nowidowmax
         10000
-        \expandafter\nowidowX\expandafter{%
+        \expandafter\nowidow@X\expandafter{%
            \the\numexpr(#1)+1\expandafter\relax\expandafter}%
     \fi
 }
