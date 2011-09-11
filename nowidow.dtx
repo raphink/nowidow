@@ -79,10 +79,10 @@
 % Widows (single lines at the top of a page) happen frequently
 % and should be avoided.
 %
-% The \texttt{\widowpenalty} command allows to prevent them,
+% The |\widowpenalty| command allows to prevent them,
 % but its syntax is a bit complex to use.
 %
-% This package provides a \texttt{\nowidow} command which is simpler
+% The \textsf{nowidow} package provides a |\nowidow| command which is simpler
 % to use in order to prevent widows.
 %
 % \section{Usage}
@@ -95,7 +95,7 @@
 %
 % \DescribeMacro{\nowidow}
 %
-% To prevent widows in a paragraph, call \texttt{\nowidow}
+% To prevent widows in a paragraph, call |\nowidow|
 % immediatly at the of the paragraph (without an empty line),
 % optionally followed by the minimal number of lines you
 % want after the page break:
@@ -123,12 +123,12 @@
 %    \end{macrocode}
 %
 % \begin{macro}{\nowidow@X}
-% Control widows
 %    \begin{macrocode}
 \def\nowidowX#1{%
     \ifnum#1<\nowidowmax
         10000
-        \expandafter\nowidowX\expandafter{\the\numexpr(#1)+1\expandafter\relax\expandafter}%
+        \expandafter\nowidowX\expandafter{%
+           \the\numexpr(#1)+1\expandafter\relax\expandafter}%
     \fi
 }
 %    \end{macrocode}
