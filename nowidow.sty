@@ -1,0 +1,17 @@
+\ProvidesPackage{nowidow}
+
+% Control widows
+\def\nowidowX#1{%
+    \ifnum#1<\nowidowmax
+        10000
+        \expandafter\nowidowX\expandafter{\the\numexpr(#1)+1\expandafter\relax\expandafter}%
+    \fi
+}
+
+\newcommand{\nowidow}[1][2]{%
+    \begingroup
+    \mathchardef\nowidowmax#1\relax
+    \widowpenalties #1 \nowidowX{1} 0\par
+    \endgroup
+}
+
