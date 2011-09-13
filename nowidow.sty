@@ -20,8 +20,16 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesPackage{nowidow}
-    [2011/09/11 0.2 Easily prevent widows]
+    [2011/09/13 0.3 Easily prevent widows]
 \ProvidesPackage{nowidow}
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{
+   family=nowidow,
+   prefix=nowidow@,
+}
+\DeclareStringOption[2]{defaultlines}
+\DeclareBoolOption{all}
+\ProcessKeyvalOptions*
 \def\nowidow@X#1{%
     \ifnum#1<\nowidowmax
         10000
@@ -29,10 +37,16 @@
            \the\numexpr(#1)+1\expandafter\relax\expandafter}%
     \fi
 }
-\newcommand{\nowidow}[1][2]{%
-    \begingroup
+\newcommand{\setnowidow}[1][\nowidow@defaultlines]{%
     \mathchardef\nowidowmax#1\relax
     \widowpenalties #1 \nowidow@X{1} 0\par
+}
+\ifnowidow@all
+   \setnowidow
+\fi
+\newcommand{\nowidow}[1][\nowidow@defaultlines]{%
+    \begingroup
+    \setnowidow[#1]
     \endgroup
 }
 \endinput

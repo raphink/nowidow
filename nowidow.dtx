@@ -26,7 +26,7 @@
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<package>\ProvidesPackage{nowidow}
 %<*package>
-    [2011/09/11 0.2 Easily prevent widows]
+    [2011/09/13 0.3 Easily prevent widows]
 %</package>
 %
 %<*driver>
@@ -43,7 +43,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{24}
+% \CheckSum{37}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -62,6 +62,7 @@
 %   Right brace   \}     Tilde         \~}
 %
 %
+% \changes{0.3}{2011/09/13}{Add setnowidow command and package options}
 % \changes{0.2}{2011/09/11}{Fix nowidow@X}
 % \changes{0.1}{2011/09/11}{Initial version}
 %
@@ -70,7 +71,7 @@
 % \providecommand*{\url}{\texttt}
 % \GetFileInfo{nowidow.dtx}
 % \title{The \textsf{nowidow} package}
-% \author{Raphaël Pinson \\ \url{raphink@gmail.com}}
+% \author{Rapha\"el Pinson \\ \url{raphink@gmail.com}}
 % \date{\fileversion~from \filedate}
 %
 % \maketitle
@@ -91,13 +92,32 @@
 % To load the package, use:
 %
 % \begin{verbatim}
-%    \usepackage{nowidow}
+%    \usepackage[<options>]{nowidow}
 % \end{verbatim}
+%
+% \subsection{Options}
+%
+% \DescribeMacro{defaultlines=<value>}
+%
+% The \texttt{defaultlines} option takes a
+% sets the default minimal number of lines
+% to be kept after the page break.
+%
+% \DescribeMacro{all}
+%
+% The \texttt{all} option sets the widow penalty
+% for the whole document upon loading the package, for example:
+%
+% \begin{verbatim}
+%    \usepackage[defaultlines=4,all]{nowidow}
+% \end{verbatim}
+%
+% \subsection{Commands}
 %
 % \DescribeMacro{\nowidow}
 %
 % To prevent widows in a paragraph, call |\nowidow|
-% immediatly at the of the paragraph (without an empty line),
+% immediatly at the end of the paragraph (without an empty line),
 % optionally followed by the minimal number of lines you
 % want after the page break:
 %
@@ -108,8 +128,17 @@
 % \end{verbatim}
 %
 % The minimal number of lines to be kept after
-% the page break defaults to 2 if not specified.
+% the page break defaults to 2 if not specified
+% or overridden by the \texttt{defaultlines} option.
 %
+% \DescribeMacro{\setnowidow}
+%
+% This macro is similar to |\nowidow| but sets
+% the widow penalty for the whole document
+% instead of the current paragraph only.
+%
+% This macro is used when the package is loaded
+% with the \texttt{all} option.
 %
 % \StopEventually{}
 %
@@ -123,6 +152,19 @@
 \ProvidesPackage{nowidow}
 %    \end{macrocode}
 %
+% \begin{macro}{Options}
+%    \begin{macrocode}
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{
+   family=nowidow,
+   prefix=nowidow@,
+}
+\DeclareStringOption[2]{defaultlines}
+\DeclareBoolOption{all}
+\ProcessKeyvalOptions*
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\nowidow@X}
 %    \begin{macrocode}
 \def\nowidow@X#1{%
@@ -135,18 +177,27 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\setnowidow}
+%    \begin{macrocode}
+\newcommand{\setnowidow}[1][\nowidow@defaultlines]{%
+    \mathchardef\nowidowmax#1\relax
+    \widowpenalties #1 \nowidow@X{1} 0\par
+}
+\ifnowidow@all
+   \setnowidow
+\fi
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{\nowidow}
 %    \begin{macrocode}
-\newcommand{\nowidow}[1][2]{%
+\newcommand{\nowidow}[1][\nowidow@defaultlines]{%
     \begingroup
-    \mathchardef\nowidowmax#1\relax
-    \widowpenalties #1 \nowidow@X{1} 0\par
+    \setnowidow[#1]
     \endgroup
 }
 %    \end{macrocode}
 % \end{macro}
-%
 %
 % \iffalse
 %</package>
