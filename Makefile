@@ -1,8 +1,8 @@
 CTANUPLOAD=ctanupload
 
 CONTRIBUTION  = nowidow
-VERSION       = v0.3
-SUMMARY       = Easily prevent widows
+VERSION       = v0.4
+SUMMARY       = Easily prevent widows and orphans
 NAME          = Raphaël Pinson
 EMAIL         = raphink@gmail.com
 DIRECTORY     = /macros/latex/contrib/$(CONTRIBUTION)
