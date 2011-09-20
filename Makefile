@@ -1,7 +1,7 @@
 CTANUPLOAD=ctanupload
 
 CONTRIBUTION  = nowidow
-VERSION       = v0.4
+VERSION       = v1.0
 SUMMARY       = Easily prevent widows and orphans
 NAME          = Raphaël Pinson
 EMAIL         = raphink@gmail.com
@@ -34,6 +34,8 @@ $(FILE): README $(SOURCEFILES) $(DOCFILES) $(PKGFILES)
 
 $(CONTRIBUTION).pdf: $(CONTRIBUTION).sty
 	pdflatex -interaction=batchmode $(CONTRIBUTION).dtx
+	makeindex -s gind.ist $(CONTRIBUTION).idx
+	makeindex -s gglo.ist -o $(CONTRIBUTION).gls $(CONTRIBUTION).glo
 	pdflatex -interaction=batchmode $(CONTRIBUTION).dtx
 
 upload: ctanify

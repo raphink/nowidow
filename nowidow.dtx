@@ -26,12 +26,13 @@
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<package>\ProvidesPackage{nowidow}
 %<*package>
-    [2011/09/14 0.4 Easily prevent widows and orphans]
+    [2011/09/20 1.0 Easily prevent widows and orphans]
 %</package>
 %
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{nowidow}[2011/09/14]
+\usepackage{epigraph}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -62,6 +63,7 @@
 %   Right brace   \}     Tilde         \~}
 %
 %
+% \changes{1.0}{2011/09/20}{Improve documentation}
 % \changes{0.4}{2011/09/14}{Add orphan management}
 % \changes{0.3}{2011/09/13}{Add setnowidow command and package options}
 % \changes{0.2}{2011/09/11}{Fix nowidow@X}
@@ -78,6 +80,17 @@
 % \maketitle
 %
 % \section{Introduction}
+%
+% \setlength{\epigraphwidth}{15em}
+% \renewcommand{\epigraphsize}{\footnotesize}
+% \epigraph{%
+% Religion that is pure and undefiled \\
+%   \hspace{2em} before God, the Father, is this: \\
+%   \hspace{2em} to visit orphans and widows \\
+%      \hspace{5em} in their affliction, \\
+%      \hspace{5em} and to keep oneself \\
+%      \hspace{5em} unstained from the world.
+% }{James~1:27 --- ESV}
 %
 % This package was based on the answer to a
 % question\footnote{\url{http://tex.stackexchange.com/questions/26272/expansion-issue-with-begingroup-and-foreach/26275\#26275}}
@@ -101,6 +114,10 @@
 % \begin{verbatim}
 %    \usepackage[<options>]{nowidow}
 % \end{verbatim}
+%
+% When no options are specified, the package will only provide macros
+% and not load any settings automatically.
+% The following sections describe the possible options for this package.
 %
 % \subsection{Options}
 %
