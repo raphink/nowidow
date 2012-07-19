@@ -8,9 +8,6 @@ describe 'Nowidow PDF' do
   it 'should be made by TeX' do
     reader.info[:Creator].should eq('TeX')
   end
-  it 'should have page 1 with given media box' do
-    reader.pages[0].attributes[:MediaBox].should eq([0, 0, 595.276, 841.89])
-  end
   it 'should have 4 fonts on page 2' do
     reader.pages[1].fonts.keys.size.should eq(4)
   end
