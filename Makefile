@@ -33,8 +33,7 @@ $(FILE): README $(SOURCEFILES) $(DOCFILES) $(PKGFILES)
 	latex $*.ins
 
 %.pdf: %.tex
-	#pdflatex -interaction=batchmode $<
-	pdflatex $<
+	pdflatex -interaction=batchmode $<
 	pdflatex -interaction=batchmode $<
 
 $(CONTRIBUTION).pdf: $(CONTRIBUTION).sty
