@@ -19,6 +19,7 @@ TEXINSTALLDIR = /usr/local/texlive/texmf-local
 
 # Checks
 EXPECTED_PAGES = 4
+EXPECTED_PAGES_TEST = 16
 
 export CONTRIBUTION VERSION NAME EMAIL SUMMARY DIRECTORY DONOTANNOUNCE ANNOUNCE NOTES LICENSE FREEVERSION FILE
 
@@ -58,8 +59,12 @@ clean:
 	rm -f $(DOCFILES) $(PKGFILES)
 	rm -f $(FILE)
 
-check:
+check: $(CONTRIBUTION).pdf $(CONTRIBUTION)-test.pdf
 	test -e $(CONTRIBUTION).pdf
 	pdfinfo $(CONTRIBUTION).pdf | grep -q "^Creator:[[:space:]]\+TeX"
 	pdfinfo $(CONTRIBUTION).pdf | grep -q "^Pages:[[:space:]]\+$(EXPECTED_PAGES)$$"
+	test -e $(CONTRIBUTION)-test.pdf
+	pdfinfo $(CONTRIBUTION)-test.pdf | grep -q "^Creator:[[:space:]]\+TeX"
+	pdfinfo $(CONTRIBUTION)-test.pdf | grep -q "^Pages:[[:space:]]\+$(EXPECTED_PAGES_TEST)$$"
+	pdftotext $(CONTRIBUTION)-test.pdf - | grep -q " Mauris$$"
 
