@@ -62,10 +62,5 @@ clean:
 
 check: $(CONTRIBUTION).pdf $(CONTRIBUTION)-test.pdf
 	test -e $(CONTRIBUTION).pdf
-	pdfinfo $(CONTRIBUTION).pdf | grep -q "^Creator:[[:space:]]\+TeX"
-	pdfinfo $(CONTRIBUTION).pdf | grep -q "^Pages:[[:space:]]\+$(EXPECTED_PAGES)$$"
 	test -e $(CONTRIBUTION)-test.pdf
-	pdfinfo $(CONTRIBUTION)-test.pdf | grep -q "^Creator:[[:space:]]\+TeX"
-	pdfinfo $(CONTRIBUTION)-test.pdf | grep -q "^Pages:[[:space:]]\+$(EXPECTED_PAGES_TEST)$$"
-	pdftotext $(CONTRIBUTION)-test.pdf - | grep -q " Mauris$$"
-
+	rspec spec/pdf_spec.rb
