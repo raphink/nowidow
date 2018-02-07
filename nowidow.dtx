@@ -44,7 +44,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{55}
+% \CheckSum{59}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -63,6 +63,7 @@
 %   Right brace   \}     Tilde         \~}
 %
 %
+% \changes{1.1}{2018/01/26}{Add support for displaymath}
 % \changes{1.0}{2011/09/20}{Improve documentation}
 % \changes{0.4}{2011/09/14}{Add orphan management}
 % \changes{0.3}{2011/09/13}{Add setnowidow command and package options}
@@ -101,7 +102,7 @@
 % (single lines at the bottom of a page) happen frequently
 % and should be avoided.
 %
-% The |\widowpenalties| and |\clubpenalties| commands allow to prevent them,
+% The |\widowpenalties|, |\displaywidowpenalty|, and |\clubpenalties| commands allow to prevent them,
 % but their syntax is a bit complex to use.
 %
 % The \textsf{nowidow} package provides |\nowidow| and |\noclub| commands
@@ -127,6 +128,16 @@
 % sets the default minimal number of lines
 % to be kept after or before the page break.
 %
+% \DescribeMacro{math}
+%
+% The \texttt{math} option enables to set the widow penalties
+% also for the lines before a ``display'' environment, which is mostly
+% used in math context.
+%
+% \begin{verbatim}
+%    \usepackage[math]{nowidow}
+% \end{verbatim}
+%
 % \DescribeMacro{all}
 %
 % The \texttt{all} option sets the widow and orphan penalties
@@ -141,7 +152,7 @@
 % \DescribeMacro{\nowidow}
 %
 % To prevent widows in a paragraph, call |\nowidow|
-% immediatly at the end of the paragraph (without an empty line),
+% immediately at the end of the paragraph (without an empty line),
 % optionally followed by the minimal number of lines you
 % want after the page break:
 %
@@ -208,6 +219,7 @@
    prefix=nowidow@,
 }
 \DeclareStringOption[2]{defaultlines}
+\DeclareBoolOption{math}
 \DeclareBoolOption{all}
 \ProcessKeyvalOptions*
 %    \end{macrocode}
@@ -229,6 +241,7 @@
 %    \begin{macrocode}
 \newcommand{\setnowidow}[1][\nowidow@defaultlines]{%
     \mathchardef\nowidowmax#1\relax
+    \ifnowidow@math \displaywidowpenalty #1\fi
     \widowpenalties #1 \nowidow@X{1} 0\par
 }
 \ifnowidow@all
