@@ -2,8 +2,8 @@ require 'pdf/reader'
 
 describe 'Nowidow PDF' do
   reader = PDF::Reader.new('nowidow.pdf')
-  it 'should have 8 pages' do
-    reader.page_count.should eq(4)
+  it 'should have 5 pages' do
+    reader.page_count.should eq(5)
   end
   it 'should be made by TeX' do
     reader.info[:Creator].should eq('TeX')
@@ -31,6 +31,6 @@ describe 'Nowidow-test PDF' do
     reader.pages[1].fonts.keys.size.should eq(1)
   end
   it 'should contain 4 lines on page 3' do
-    reader.pages[2].text.should eq("augue. Cras ac magna. Cras nulla. Nulla\negestas. Curabitur a leo. Quisque egestas\n\nwisi eget nunc...")
+    reader.pages[2].text.should eq("augue. Cras ac magna. Cras nulla. Nulla\negestas. Curabitur a leo. Quisque egestas\n\nwisi eget nunc...n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n3")
   end
 end
