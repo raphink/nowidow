@@ -12,7 +12,7 @@ describe 'Nowidow PDF' do
     reader.pages[1].fonts.keys.size.should eq(4)
   end
   it 'should start with a title' do
-    reader.pages[0].text.should match('Thenowidowpackage.*')
+    reader.pages[0].text.should match('The nowidow package.*')
   end
 end
 
@@ -31,6 +31,6 @@ describe 'Nowidow-test PDF' do
     reader.pages[1].fonts.keys.size.should eq(1)
   end
   it 'should contain 4 lines on page 3' do
-    reader.pages[2].text.should eq("augue.Crasacmagna.Crasnulla.Nulla\negestas.Curabituraleo.Quisqueegestas\nwisiegetnunc.Namfeugiatlacusvelest.\nCurabiturconsectetuer.\n3")
+    reader.pages[2].text.should eq("augue. Cras ac magna. Cras nulla. Nulla\negestas. Curabitur a leo. Quisque egestas\n\nwisi eget nunc...")
   end
 end
